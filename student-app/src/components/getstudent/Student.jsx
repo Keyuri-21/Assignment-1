@@ -5,7 +5,7 @@ import "./Student.css";
 const Student = () =>{
     return(
         <div className="studentTable"> 
-        <Link to ={"/add"}> Add Student</Link>
+        <Link to ={"/add"} className="addButton">  Add Student</Link>
         <table border={1} cellPadding={20} cellSpacing={2} >
             <thead>
                 <tr>

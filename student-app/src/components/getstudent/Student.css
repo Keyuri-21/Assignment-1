@@ -1,4 +1,26 @@
-.userTable{
-    width: 60%;
-    background-color: rgb(54, 179, 179);
+.studentTable{
+    width: 90%;
+    background-color: rgb(228, 234, 238);
+    box-shadow: 1px 1px 1px rgba(0,0,0,0.065);
+    margin:50px auto;
+    border-radius: 5px;
+    padding: 50px;
 }
+
+.addButton{
+    text-decoration: none;
+    background-color: rgb(111, 201, 224);
+    color: black;
+    font-weight: 300;
+    box-shadow: 1px 1px 1px rgba(0,0,0,0.065);
+    border-radius: 3px;
+    padding: 10px;
+
+}
+
+.studentTable table{
+    width: 100px;
+    margin-top: 25px;
+    border-collapse: collapse;
+}
+    
