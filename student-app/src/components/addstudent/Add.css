@@ -1,0 +1,39 @@
+.addStudent{
+    width: 25%;
+    background-color: white;
+    box-shadow: 1px 1px 1px rgba(0,0,0,0.65);
+    margin:50px auto;
+    border-radius: 5px;
+    padding: 50px;
+}
+.adddetails .inputGroup{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1px;
+}
+.adddetails .inputGroup label{
+    margin-bottom: 5px;
+}
+.adddetails .inputGroup input{
+    margin-bottom: 10px;
+    padding: 10px;
+    outline: none;
+}
+.adddetails .inputGroup button{
+    border: 0;
+    outline: none;
+    background-color: purple;
+    color: white;
+    font-weight: 600;
+    padding: 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    box-shadow: 1px 1px 8px rgba(0,0,0,0.65);
+    margin-top: 20px;
+}
+.adddetails h3{
+    margin-top: 10px;
+    
+}

@@ -3,17 +3,17 @@ import Student from '../model/studentModel.js';
 export const create = async(req, res)=>{
     try{
         const studentData = new Student(req.body);
+        
 
         if(!studentData){
             return res.status(404).json({msg: "Student data not found"});
         }
-
         const savedData = await studentData.save();
         console.log('Saved Data:', savedData); 
-        res.status(200).json(savedData);
+        res.status(200).json({msg: "Student created successfully."});
 
     }catch(error){
-        res.status(500).json({error: error});
+        res.status(200).json({error: error.message});
 
     } 
 
@@ -56,7 +56,7 @@ export const update = async(req, res) =>{
         }
 
         const updatedData = await Student.findByIdAndUpdate(id, req.body, {new:true});
-        res.status(200).json(updatedData);
+        res.status(200).json({msg: "Details Updated Successfully"});
         
     } catch (error) {
         res.status(500).json({error: error});

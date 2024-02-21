@@ -2,6 +2,8 @@
 import './App.css';
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Student from './components/getstudent/Student';
+import Add from './components/addstudent/Add';
+import Edit from './components/updatestudent/Edit';
 
 function App() {
 
@@ -11,12 +13,12 @@ function App() {
       element:<Student/>,
     },
     {
-      path:"/add",
-      element:"Add Student Page",
+      path:"/Add",
+      element:<Add />,
     },
     {
-      path:"/edit",
-      element:"Update Student details",
+      path:"/Edit/:id",
+      element:<Edit/>,
     },
   ])
   return (

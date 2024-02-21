@@ -1,7 +1,7 @@
 .studentTable{
-    width: 90%;
+    width: 75%;
     background-color: rgb(228, 234, 238);
-    box-shadow: 1px 1px 1px rgba(0,0,0,0.065);
+    box-shadow: 1px 1px 1px rgba(0,0,0,0.65);
     margin:50px auto;
     border-radius: 5px;
     padding: 50px;
@@ -11,16 +11,46 @@
     text-decoration: none;
     background-color: rgb(111, 201, 224);
     color: black;
-    font-weight: 300;
-    box-shadow: 1px 1px 1px rgba(0,0,0,0.065);
-    border-radius: 3px;
+    font-weight: 500;
+    box-shadow: 1px 1px 1px rgba(0,0,0,0.65);
+    border-radius: 5px;
     padding: 10px;
+    margin: auto;
+    margin-left: 15%;
 
 }
 
 .studentTable table{
-    width: 100px;
-    margin-top: 25px;
+    width: 70%;
+    margin: auto;
+    margin-top: 30px;
     border-collapse: collapse;
 }
-    
+
+.studentTable table thead th{
+    background-color: blueviolet;
+    color: blanchedalmond;
+    padding: 10px;
+}
+
+.studentTable table tbody td{
+    padding: 10px;
+    text-align: center;
+}
+
+.actionButtons button{
+    border: 0;
+    outline: none;
+    background: red;
+    padding: 8px 10px;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.actionButtons a{
+    background: green;
+    padding: 6px 10px;
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+}
