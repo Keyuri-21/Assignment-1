@@ -25,13 +25,13 @@ export const Add = () => {
         await axios.post("http://localhost:8000/api/create", student)
         .then((response)=>{
             toast.success(response.data.msg, {position:"top-right"});
-            navigate("/")
+            window.location.href = '/list';
         })
         .catch(error => console.log(error))
     }
   return (
     <div className='addStudent'>
-        <Link to={"/"}>Back</Link>
+        <Link to={"/list"}>Back</Link>
         <h3>Add New Student</h3>
     <form className='adddetails' onSubmit={submitForm}>
         <div className="inputGroup">

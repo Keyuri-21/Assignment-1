@@ -37,13 +37,13 @@ import toast from 'react-hot-toast';
         await axios.put(`http://localhost:8000/api/update/${id}`, student)
         .then((response)=>{
             toast.success(response.data.msg, {position:"top-right"});
-            navigate("/")
+            navigate("/list")
         })
         .catch(error => console.log(error))
     }
   return (
     <div className='addStudent'>
-    <Link to={"/"}>Back</Link>
+    <Link to={"/list"}>Back</Link>
     <h3>Update Student Details</h3>
 <form className='adddetails' onSubmit={submitForm}>
     <div className="inputGroup">
