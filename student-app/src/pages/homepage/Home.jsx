@@ -4,7 +4,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './Home.css'; // Import the CSS file
 
-const HomePage = () => {
+const Home = () => {
   return (
     <div className="container">
       <h1>Welcome to the Student Management System</h1>
@@ -21,4 +21,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default Home;

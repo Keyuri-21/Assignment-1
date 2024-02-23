@@ -6,8 +6,9 @@ import Add from './components/addstudent/Add';
 import Edit from './components/updatestudent/Edit';
 import React from 'react';
 import Home from './pages/homepage/Home';
-import Login from './pages/loginpage/Login';
-import Signup from './pages/signuppage/Signup';
+import Login from './pages/Login';
+import Signup from './pages/Signup';
+import Admin from './pages/Admin';
 
 
 
@@ -38,6 +39,10 @@ function App() {
     {
       path:"/Signup",
       element:<Signup />,
+    },
+    {
+      path:"/Admin",
+      element:<Admin />,
     },
   ])
   return (

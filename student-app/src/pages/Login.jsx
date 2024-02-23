@@ -1,27 +1,39 @@
 // Login.js
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Login = () => {
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
-  const [error, setError] = useState();
-  const Navigate = useNavigate();
 
-  const handleLogin = async (e) => {
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    await axios.post('http://localhost:8000/Login', {
+    await axios.post('http://localhost:8000/login', {
         email,
         password,
       })
       .then(result => {console.log(result)
-        if(result.data === "Success"){
+        if(result.data === "Success"){ 
           window.location.href = '/list';
         }
        
       })
       .catch(err => console.log(err))
+      await axios.post('http://localhost:8000/logina', {
+        email,
+        password,
+      })
+      .then(result => {console.log(result)
+        if(result.data === "Success"){ 
+          window.location.href = '/admin';
+        }
+       
+      })
+      .catch(err => console.log(err))
+
     }
 
  
@@ -30,7 +42,7 @@ const Login = () => {
     <div className='d-flex justify-content-center align-items-center bg-primary vh-100'>
       <div className='bg-white p-3 rounded w-25'>
         <h2>Login</h2>
-        <form onSubmit={handleLogin}>
+        <form onSubmit={handleSubmit}>
           <div className='mb-3'>
             <label htmlFor='email'>
               <strong>Email</strong>
@@ -40,6 +52,7 @@ const Login = () => {
               placeholder='Enter Email'
               autoComplete='off'
               name='email'
+              required
               onChange={(e) => setEmail(e.target.value)}
               className='form-control rounded-0'
             />
@@ -53,11 +66,12 @@ const Login = () => {
               placeholder='Enter Password'
               autoComplete='off'
               name='password'
+              required
               onChange={(e) => setPassword(e.target.value)}
               className='form-control rounded-0'
             />
           </div>
-          {error && <div className='text-danger mb-3'>{error}</div>}
+          {/* {error && <div className='text-danger mb-3'>{error}</div>} */}
           <button type='submit' className='btn btn-success w-100 rounded-0'>
             Login
           </button>

@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import route from "./routes/studentRoute.js";
 import SignupModel from "./model/signupModel.js"
+import AdminModel from "./model/adminModel.js";
 
 const app = express();
 app.use(bodyParser.json());
@@ -25,12 +26,28 @@ mongoose.connect(URL).then(()=>{
 
 }).catch(error => console.log(error));
 
-app.post('/Login', (req, res) =>{
+app.post('/login', (req, res) =>{
     const {email, password} = req.body;
     SignupModel.findOne({email: email})
-    .then(user => {
-        if(user){
-            if(user.password === password){
+    .then(signup => {
+        if(signup){
+            if(signup.password === password){
+                res.json("Success")
+            }else{
+                res.json("password incorrect")
+            }
+        }else{
+            res.json("email is not registered")
+        }
+    })
+})
+
+app.post('/logina', (req, res) =>{
+    const {email, password} = req.body;
+    AdminModel.findOne({email: email})
+    .then(admins => {
+        if(admins){
+            if(admins.password === password){
                 res.json("Success")
             }else{
                 res.json("password incorrect")
