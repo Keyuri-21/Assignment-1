@@ -55,7 +55,7 @@ const Signup = () => {
 
     // If validation passes, make the API call
     axios
-      .post('http://localhost:8000/signup', {
+      .post('http://localhost:7000/signup', {
         name: name,
         email: email,
         password: password,
@@ -71,11 +71,11 @@ const Signup = () => {
   };
 
   return (
-    <div className='d-flex justify-content-center align-items-center bg-primary vh-100'>
-      <div className='bg-white p-3 rounded w-25'>
+    <div className='d-flex justify-content-center align-items-center vh-100' style={{ backgroundColor: '#b5e4e763' }}>
+      <div className='bg-white p-3 rounded w-50 w-md-75 w-lg-60'>
         <h2>Sign Up</h2>
         <form onSubmit={handleSubmit}>
-          <div className='mb-3'>
+          <div className='mb-2'>
             <label htmlFor='name'>
               <strong>Name</strong>
             </label>
@@ -131,13 +131,14 @@ const Signup = () => {
             />
             {errors.confirm && <div className='text-danger'>{errors.confirm}</div>}
           </div>
-          <button type='submit' className='btn btn-success w-100 rounded-0'>
+
+          <button type='submit' className='btn btn-success w-auto rounded-0 align-content-center'>
             Sign Up
           </button>
           <p>Already Have an Account</p>
           <Link
             to={'/Login'}
-            className='btn btn-default border w-100 bg-light rounded-0 text-decoration-none'
+            className='btn btn-default border w-auto bg-light rounded-0 text-decoration-none'
           >
             Login
           </Link>

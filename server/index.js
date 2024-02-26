@@ -4,19 +4,22 @@ import bodyParser from "body-parser";
 import dotenv from "dotenv";
 import cors from "cors";
 import route from "./routes/studentRoute.js";
+import parentRoute from "./routes/parentRoute.js";
 import SignupModel from "./model/signupModel.js"
 import AdminModel from "./model/adminModel.js";
+
 
 const app = express();
 app.use(bodyParser.json());
 app.use(express.json());
 app.use(cors());
 dotenv.config();
+app.use(express.static("public"));
 
-const PORT = process.env.PORT || 7000;
-const URL = process.env.MONGOURL;
+const PORT =  7000;
+// const URL = process.env.MONGOURL;
 
-mongoose.connect(URL).then(()=>{
+mongoose.connect("mongodb://127.0.0.1:27017/studentms").then(()=>{
     console.log("Db connected successfully..");
 
     app.listen(PORT, ()=>{
@@ -42,12 +45,16 @@ app.post('/login', (req, res) =>{
     })
 })
 
-app.post('/logina', (req, res) =>{
+app.post('/admin/login', (req, res) =>{
     const {email, password} = req.body;
+
+    console.log(email ,password)
     AdminModel.findOne({email: email})
-    .then(admins => {
-        if(admins){
-            if(admins.password === password){
+
+    
+    .then(admin => {
+        if(admin){
+            if(admin.password === password){
                 res.json("Success")
             }else{
                 res.json("password incorrect")
@@ -76,3 +83,4 @@ app.use('/signup', (req, res) =>{
 })
 
 app.use("/api", route);
+app.use("/api", parentRoute);

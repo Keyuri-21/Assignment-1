@@ -1,84 +1,54 @@
-// Login.js
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import LoginForm from '../components/LoginForm';
 
 const Login = () => {
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
-
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [errors, setErrors] = useState({});
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await axios.post('http://localhost:8000/login', {
+    try {
+      const result = await axios.post('http://localhost:7000/login', {
         email,
         password,
-      })
-      .then(result => {console.log(result)
-        if(result.data === "Success"){ 
-          window.location.href = '/list';
-        }
-       
-      })
-      .catch(err => console.log(err))
-      await axios.post('http://localhost:8000/logina', {
-        email,
-        password,
-      })
-      .then(result => {console.log(result)
-        if(result.data === "Success"){ 
-          window.location.href = '/admin';
-        }
-       
-      })
-      .catch(err => console.log(err))
+      });
 
+      if (result.data === 'Success') {
+        window.location.href = '/profile';
+      }
+    } catch (err) {
+      if (err.response && err.response.data) {
+        setErrors(err.response.data);
+      }
     }
-
- 
+  };
 
   return (
-    <div className='d-flex justify-content-center align-items-center bg-primary vh-100'>
-      <div className='bg-white p-3 rounded w-25'>
-        <h2>Login</h2>
+    <div className="d-flex justify-content-center align-items-center vh-100" style={{ backgroundColor: '#b5e4e763' }}>
+      <div className="bg-white p-4 rounded w-75 w-md-50 w-lg-25">
+        <h2 className="text-center mb-4">Login</h2>
         <form onSubmit={handleSubmit}>
-          <div className='mb-3'>
-            <label htmlFor='email'>
-              <strong>Email</strong>
-            </label>
-            <input
-              type='email'
-              placeholder='Enter Email'
-              autoComplete='off'
-              name='email'
-              required
-              onChange={(e) => setEmail(e.target.value)}
-              className='form-control rounded-0'
-            />
+          <LoginForm setEmail={setEmail} setPassword={setPassword} errors={errors} />
+
+          <div className="d-grid gap-2">
+            <button type="submit" className="btn btn-success rounded-0">
+              Login
+            </button>
           </div>
-          <div className='mb-3'>
-            <label htmlFor='password'>
-              <strong>Password</strong>
-            </label>
-            <input
-              type='password'
-              placeholder='Enter Password'
-              autoComplete='off'
-              name='password'
-              required
-              onChange={(e) => setPassword(e.target.value)}
-              className='form-control rounded-0'
-            />
-          </div>
-          {/* {error && <div className='text-danger mb-3'>{error}</div>} */}
-          <button type='submit' className='btn btn-success w-100 rounded-0'>
-            Login
-          </button>
-          <p>Don't have an account?</p>
+
+          <p className="mt-3 mb-2 text-center text-danger">
+            {errors.general && <span>{errors.general}</span>}
+          </p>
+
+          <p className="mt-3 mb-2 text-center">Don't have an account?</p>
+
           <Link
-            to={'/signup'}
-            className='btn btn-default border w-100 bg-light rounded-0 text-decoration-none'
+            to="/signup"
+            className="btn btn-light rounded-0 text-dark w-100 text-decoration-none"
           >
             Sign Up
           </Link>

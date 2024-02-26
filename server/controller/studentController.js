@@ -1,38 +1,49 @@
 import Student from '../model/studentModel.js';
 
-export const create = async(req, res)=>{
-    try{
-        const studentData = new Student(req.body);
-        
+export const profilePic = async (req, res) =>{
+ Student.find()
+.then(students =>{res.json(students), console.log(students)})
 
-        if(!studentData){
-            return res.status(404).json({msg: "Student data not found"});
-        }
-        const savedData = await studentData.save();
-        console.log('Saved Data:', savedData); 
-        res.status(200).json({msg: "Student created successfully."});
-
-    }catch(error){
-        res.status(200).json({error: error.message});
-
-    } 
-
+.catch(err => res.json(err))
 }
 
+export const create =   async (req, res) => {    
+    try {
+        const { email, std, school } = req.body;
+        const profilePic = req.file.filename ;
+        console.log(profilePic)
+        const studentData = new Student({
+            email,
+            std, 
+            school,
+            profilePic,
+        });
+
+        const savedData = await studentData.save();
+        res.status(200).json({ msg: "Student created successfully." });
+
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+};
+
+// get api for list of students
 export const getAll = async(req, res) =>{
     try{
-
+        console.log("hbfh")
         const studentData = await Student.find();
+        console.log(studentData)
             if(!studentData){
                 return res.status(400).json({msg: "Student Data not found."});
             }
             res.status(200).json(studentData);
 
     }catch(error){
-        res.status(500).json({error: error});
+        res.status(500).json({error: error});   
     }
 }
 
+// get api for single student
 export const getOne = async(req,res) =>{
     try{
         const id = req.params.id;
@@ -47,6 +58,7 @@ export const getOne = async(req,res) =>{
     }
 }
 
+// update api for students
 export const update = async(req, res) =>{
     try {
         const id = req.params.id;
@@ -63,6 +75,8 @@ export const update = async(req, res) =>{
     }
 }
 
+
+// delete api for students
 export const deleteStudent = async(req, res) =>{
     try {
         const id = req.params.id;
@@ -78,3 +92,21 @@ export const deleteStudent = async(req, res) =>{
         
     }
 }
+
+
+// search api based on name of students
+export const search = async (req, res) =>{
+    try {
+        const email = req.params.email;
+        const studentExist = await Student.find({email:  { $regex: new RegExp(email, 'i') } });
+
+
+        if(!studentExist){
+            return res.status(404).json({msg: "Student not exists."});
+        }
+        res.status(200).json(studentExist);
+    } catch (error) {
+        res.status(500).json({error: error});
+    }
+}
+

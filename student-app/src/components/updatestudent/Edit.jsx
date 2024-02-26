@@ -8,11 +8,12 @@ import toast from 'react-hot-toast';
 
     const {id} = useParams();
     const [student, setStudent] = useState({
-        Name: "",
-        Surname: "",
-        Std: "",
-        Rollno: ""
+        email: "",
+        std: "",
+        school: "",
+        profilePic :""
     });
+    const [profilePic, setProfilePic] = useState();
     const navigate = useNavigate();
 
     const inputChangeHandler = (e) =>{
@@ -21,11 +22,22 @@ import toast from 'react-hot-toast';
         console.log(student);
     }
 
+    const imgHandler = (e) =>{
+        setStudent({...student, profilePic: e.target.files[0]})
+    }
+
     useEffect(()=>{
-       axios.get(`http://localhost:8000/api/getOne/${id}`)
+       axios.get(`http://localhost:7000/api/getOne/${id}`)
        .then((response)=>{
         setStudent(response.data);
-        console.log(response.data);
+        const fetchStudentData = response.data.studentExist
+        setStudent({
+            email: fetchStudentData.email,
+            std: fetchStudentData.std,
+            school: fetchStudentData.school,
+            profilePic: fetchStudentData.profilePic,
+        });
+      
        })
        .catch((error)=>{
         console.log(error);   
@@ -34,10 +46,22 @@ import toast from 'react-hot-toast';
 
     const submitForm = async(e) =>{
         e.preventDefault();
-        await axios.put(`http://localhost:8000/api/update/${id}`, student)
+        
+        const formData = new FormData();
+        formData.append('email', student.email);
+        formData.append('std', student.std);
+        formData.append('school', student.school);
+        formData.append('profilePic', student.profilePic);
+
+        await axios.post("http://localhost:7000/api/update/${id}", formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        })
         .then((response)=>{
             toast.success(response.data.msg, {position:"top-right"});
-            navigate("/list")
+            
+            window.location.href = '/list';
         })
         .catch(error => console.log(error))
     }
@@ -47,22 +71,30 @@ import toast from 'react-hot-toast';
     <h3>Update Student Details</h3>
 <form className='adddetails' onSubmit={submitForm}>
     <div className="inputGroup">
-        <label htmlFor='Name'>Name:</label>
-        <input type='text' value={student.Name} onChange={inputChangeHandler} name="Name" autoComplete='off'/>
-        {console.log(student)}
+        <label htmlFor='Name'>Email:</label>
+        <input type='email' value={student.email} onChange={inputChangeHandler} name="email" autoComplete='off'/>
     </div>
     <div className='inputGroup'>
-        <label htmlFor='surname'>Surname:</label>
-        <input type='text' value={student.Surname} onChange={inputChangeHandler} name="Surname" autoComplete='off'/>
+        <label htmlFor='surname'>Standard:</label>
+        <input type='text' value={student.std} onChange={inputChangeHandler} name="std" autoComplete='off'/>
     </div>
     <div className="inputGroup">
-        <label htmlFor='Std'>Standard:</label>
-        <input type='number' value={student.Std} onChange={inputChangeHandler} name="Std" autoComplete='off'/>
+        <label htmlFor='Name'>School:</label>
+        <input type='text' value={student.school} onChange={inputChangeHandler} name="school" autoComplete='off' />
     </div>
-    <div className="inputGroup">
-        <label htmlFor='Name'>Roll Number:</label>
-        <input type='number' value={student.Rollno} onChange={inputChangeHandler} name="Rollno" autoComplete='off' />
-    </div>
+    <div className='mb-3'>
+            <label htmlFor='profilePic'>
+              <strong> Profile:</strong>
+            </label>
+            <input
+              type='file'
+              placeholder='Select Profile Picture'
+              autoComplete='off'
+              name='profilePic'
+              onChange={imgHandler}
+              className='form-control rounded-0'
+            />
+          </div>
     <div className="inputGroup">
         <button type='submit'>Update Student Details</button>
     </div>

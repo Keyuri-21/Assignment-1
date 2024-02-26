@@ -1,20 +1,20 @@
 import mongoose from "mongoose";
 
 const studentSchema = new mongoose.Schema({
-    Name:{
+    email:{
         type: String,
         required: true
     },
-    Surname:{
+    std:{
         type: String,
         required: true
     },
-    Std:{
-        type: Number,
+    school:{
+        type: String,
         required: true
     },
-    Rollno:{
-        type: Number,
+    profilePic:{
+        type: String,
         required: true
     }
     
