@@ -7,6 +7,7 @@ import { deleteParent } from "../controller/parentController.js";
 const parentRoute = express.Router();
 const app =express()
 
+//giving the rooute to all the apis for the parent
 parentRoute.post("/createParent", createParent);
 parentRoute.get("/getAllParent", getAllParent);
 parentRoute.get("/getOneParent/:id", getOneParent);

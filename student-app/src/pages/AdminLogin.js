@@ -22,11 +22,11 @@ const AdminLogin = () => {
             if (result.data === "Success") {
                 window.location.href = '/admin';
             } else {
-                // Handle unsuccessful login (e.g., show an error message)
+                // Handle unsuccessful login 
                 console.error("Login unsuccessful");
             }
         } catch (error) {
-            // Handle API call errors (e.g., network issues, server errors)
+            // Handle API call errors 
             console.error("Error during login:", error.message);
         }
     };
@@ -40,13 +40,6 @@ const AdminLogin = () => {
                     <button type='submit' className='btn btn-success w-100 mt-3'>
                         Login
                     </button>
-                    <p className='text-center mt-2'>Don't have an account?</p>
-                    <Link
-                        to={'/signup'}
-                        className='btn btn-default border w-100 bg-light mt-2 text-decoration-none'
-                    >
-                        Sign Up
-                    </Link>
                 </form>
             </div>
         </div>

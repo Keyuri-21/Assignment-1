@@ -1,8 +1,8 @@
 import Parent from '../model/parentModel.js';
-
+// api for creating the parent 
 export const createParent =   async (req, res) => {    
     try {
-        console.log("sdd")
+
         const { fname, lname, parentOf, relation, phoneNo,} = req.body;
         console.log(req.body);
         const parentData = new Parent({
@@ -16,13 +16,13 @@ export const createParent =   async (req, res) => {
         res.status(200).json({ msg: "parent created successfully." });
 
     } catch (error) {
+        console.log(error)
         res.status(500).json({ error: error.message });
     }
 };
 
-// get api for list of students
+// get api for list of parents
 export const getAllParent = async(req, res) =>{
-    console.log("dfa")
     try{
         const parentData = await Parent.find();
         console.log(parentData)
@@ -36,7 +36,7 @@ export const getAllParent = async(req, res) =>{
     }
 }
 
-// get api for single student
+// get api for single parent
 export const getOneParent = async(req,res) =>{
     try{
         const id = req.params.id;
@@ -51,7 +51,7 @@ export const getOneParent = async(req,res) =>{
     }
 }
 
-// update api for students
+// update api for parent
 export const updateParent = async(req, res) =>{
     try {
         const id = req.params.id;
@@ -68,7 +68,7 @@ export const updateParent = async(req, res) =>{
     }
 }
 
-// delete api for students
+// delete api for parents
 export const deleteParent = async(req, res) =>{
     try {
         const id = req.params.id;
@@ -86,11 +86,11 @@ export const deleteParent = async(req, res) =>{
 }
 
 
-// search api based on name of students
+// search api based on  first name of parents
 export const searchParent = async (req, res) =>{
     try {
-        const name = req.params.name;
-        const parentExist = await Parent.find({Name:  { $regex: new RegExp(name, 'i') } });
+        const fname = req.params.fname;
+        const parentExist = await Parent.find({fname:  { $regex: new RegExp(fname, 'i') } });
 
 
         if(!parentExist){

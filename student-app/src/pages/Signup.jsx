@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 const Signup = () => {
   const [name, setName] = useState('');
@@ -48,14 +48,13 @@ const Signup = () => {
     // Set errors state to display validation messages
     setErrors(formErrors);
 
-    // Display errors and prevent API call if any validation fails
+    // Display errors and 
     if (Object.keys(formErrors).length > 0) {
       return;
     }
 
     // If validation passes, make the API call
-    axios
-      .post('http://localhost:7000/signup', {
+    axios.post('http://localhost:7000/signup', {
         name: name,
         email: email,
         password: password,
@@ -64,7 +63,7 @@ const Signup = () => {
       .then((result) => {
         console.log(result);
 
-        // Redirect to login page upon successful registration
+        // Redirect to login page 
         window.location.href = '/login';
       })
       .catch((err) => console.log(err));

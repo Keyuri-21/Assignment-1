@@ -3,10 +3,13 @@ import mongoose from "mongoose";
 import bodyParser from "body-parser";
 import dotenv from "dotenv";
 import cors from "cors";
+import path from "path";
 import route from "./routes/studentRoute.js";
 import parentRoute from "./routes/parentRoute.js";
 import SignupModel from "./model/signupModel.js"
 import AdminModel from "./model/adminModel.js";
+import session from "express-session";
+import Student from "./model/studentModel.js";
 
 
 const app = express();
@@ -15,10 +18,10 @@ app.use(express.json());
 app.use(cors());
 dotenv.config();
 app.use(express.static("public"));
-
 const PORT =  7000;
 // const URL = process.env.MONGOURL;
 
+//connection of the database
 mongoose.connect("mongodb://127.0.0.1:27017/studentms").then(()=>{
     console.log("Db connected successfully..");
 
@@ -29,22 +32,46 @@ mongoose.connect("mongodb://127.0.0.1:27017/studentms").then(()=>{
 
 }).catch(error => console.log(error));
 
-app.post('/login', (req, res) =>{
-    const {email, password} = req.body;
-    SignupModel.findOne({email: email})
-    .then(signup => {
-        if(signup){
-            if(signup.password === password){
-                res.json("Success")
-            }else{
-                res.json("password incorrect")
-            }
-        }else{
-            res.json("email is not registered")
-        }
-    })
-})
 
+
+//api for the fetching of the student details
+app.get('/getByEmail', async (req, res) => {
+  const { email } = req.query;
+  const student = await Student.findOne({ email });
+  console.log(student)
+
+  if (student) {
+    res.json(student);
+  } else {
+    res.status(404).json({ error: 'Student not found' });
+  }
+});
+
+
+//api for the login of user
+app.post('/login', (req, res) => {
+    const { email, password } = req.body;
+    console.log(req.body);
+  
+    SignupModel.findOne({ email: email })
+      .then((signup) => {
+        if (signup) {
+          if (signup.password === password) {  
+            res.json('Success');
+          } else {
+            res.json('Password incorrect');
+          }
+        } else {
+          res.json('Email is not registered');
+        }
+      })
+      .catch((error) => {
+        console.error('Error during login:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+      });
+  });
+
+  //api for the login of admin
 app.post('/admin/login', (req, res) =>{
     const {email, password} = req.body;
 
@@ -66,7 +93,7 @@ app.post('/admin/login', (req, res) =>{
 })
 
 
-
+// api for the signup of the user
 app.use('/signup', (req, res) =>{
     const {name, email, password, confirm} = req.body;
     SignupModel.findOne({email: email})

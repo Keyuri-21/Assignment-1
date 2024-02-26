@@ -1,3 +1,4 @@
+// created the admin collection in the database
 import mongoose from "mongoose";
 
 const AdminSchema = new mongoose.Schema({

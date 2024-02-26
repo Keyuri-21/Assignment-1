@@ -7,6 +7,7 @@ export const profilePic = async (req, res) =>{
 .catch(err => res.json(err))
 }
 
+//api for the create student
 export const create =   async (req, res) => {    
     try {
         const { email, std, school } = req.body;
@@ -30,7 +31,6 @@ export const create =   async (req, res) => {
 // get api for list of students
 export const getAll = async(req, res) =>{
     try{
-        console.log("hbfh")
         const studentData = await Student.find();
         console.log(studentData)
             if(!studentData){
@@ -63,13 +63,22 @@ export const update = async(req, res) =>{
     try {
         const id = req.params.id;
         const studentExist = await Student.findById(id);
+        console.log(id)
         if(!studentExist){
             return res.status(401).json({msg: "Student not exists."})
         }
 
-        const updatedData = await Student.findByIdAndUpdate(id, req.body, {new:true});
-        res.status(200).json({msg: "Details Updated Successfully"});
-        
+        const { email, std, school, profilePic } = req.body;
+
+    // Update the document
+    const updatedData = await Student.findByIdAndUpdate(
+      id,
+      { email, std, school, profilePic },
+      { new: true }
+    );
+
+    res.status(200).json({ msg: "Details Updated Successfully", updatedData });
+ 
     } catch (error) {
         res.status(500).json({error: error});
     }
@@ -94,7 +103,7 @@ export const deleteStudent = async(req, res) =>{
 }
 
 
-// search api based on name of students
+// search api based on email of students
 export const search = async (req, res) =>{
     try {
         const email = req.params.email;

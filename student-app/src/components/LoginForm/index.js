@@ -1,5 +1,5 @@
 import React from 'react';
-
+// login form component used in the login pages
 const LoginForm = ({ setEmail, setPassword }) => {
   return (
     <>

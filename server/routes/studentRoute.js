@@ -10,10 +10,12 @@ import { profilePic } from "../controller/studentController.js";
 const route = express.Router();
 const app =express()
 
+//for accessing the images 
 app.use(express.static("public"));
 
 let imageName = "";
 
+//storing the file 
 const storage = multer.diskStorage({   
     destination: function(req, file, cb) { 
     cb(null, './public');    
@@ -24,9 +26,11 @@ const storage = multer.diskStorage({
   
 });
 
-
+//upload the file stored
 const upload = multer({ storage: storage })
 
+
+// all the routes for the apis of the student
 route.get('/getprofilePic', profilePic); 
 route.post("/create",upload.single("profilePic") , create);
 route.get("/getAll", getAll);

@@ -1,11 +1,9 @@
-import React from 'react'
+import React from 'react';
 import { Link } from 'react-router-dom';
-// import Student from './components/liststudent/Student';
-// import Add from './components/addstudent/Add';
-// import Edit from './components/updatestudent/Edit';
+
 const Admin = () => {
   return (
-    <div style={{ textAlign: 'center', marginTop: '50px' }}>
+    <div style={{ textAlign: 'center', marginTop: '50px', backgroundColor: '#f0f0f0', padding: '20px' }}>
       <h2>Welcome to Admin Dashboard</h2>
       <div style={{ display: 'flex', justifyContent: 'center', marginTop: '20px' }}>
         <Link
@@ -42,4 +40,5 @@ const Admin = () => {
     </div>
   );
 };
+
 export default Admin;

@@ -13,6 +13,7 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Admin from './pages/Admin';
 import AdminLogin from './pages/AdminLogin';
+import StudentProfile from './components/studentprofile/StudentProfile';
 
 function App() {
 
@@ -42,16 +43,20 @@ function App() {
       element:<AddParent />,
     },
     {
-      path:"/Edit/:id",
+      path:"/update/:id",
       element:<Edit/>,
     },
     {
-      path:"/update/Parent/:id",
+      path:"/updateParent/:id",
       element:<EditParent/>,
     },
     {
       path:"/Login",
       element:<Login/>,
+    },
+    {
+      path:"/StudentProfile/:email",
+      element:<StudentProfile/>,
     },
     {
       path:"/Signup",

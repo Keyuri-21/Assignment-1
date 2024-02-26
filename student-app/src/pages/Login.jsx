@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import LoginForm from '../components/LoginForm';
+
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState({});
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -16,9 +18,10 @@ const Login = () => {
         email,
         password,
       });
+      console.log(result);
 
       if (result.data === 'Success') {
-        window.location.href = '/profile';
+        navigate(`/StudentProfile/${email}`);
       }
     } catch (err) {
       if (err.response && err.response.data) {

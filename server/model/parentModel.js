@@ -1,5 +1,6 @@
-import mongoose from "mongoose";
 
+import mongoose from "mongoose";
+// creating the parent collection for the database
 const parentSchema = new mongoose.Schema({
     fname:{
         type: String,

@@ -1,81 +1,135 @@
-import React, { useEffect, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import axios from "axios";
-import toast  from 'react-hot-toast';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
+import toast from 'react-hot-toast';
 
+const AddParent = () => {
+  const parents = {
+    fname: '',
+    lname: '',
+    parentOf: '',
+    relation: '',
+    phoneNo: '',
+  };
+  const [parent, setParent] = useState(parents);
 
+  const inputHandler = (e) => {
+    const { name, value } = e.target;
+    setParent({ ...parent, [name]: value });
+  };
 
-export const Add = () => {
-    const parents ={
-        fname:"",
-        lname:"",
-        parentOf:"",
-        relation:"",
-        phoneNo:""
-        
+  const submitForm = async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData();
+    formData.append('fname', parent.fname);
+    formData.append('lname', parent.lname);
+    formData.append('parentOf', parent.parentOf);
+    formData.append('relation', parent.relation);
+    formData.append('phoneNo', parent.phoneNo);
+    const data = Object.fromEntries(formData.entries());
+
+    try {
+      const response = await axios.post('http://localhost:7000/api/createParent', data, {});
+
+      toast.success(response.data.msg, { position: 'top-right' });
+      window.location.href = '/parentList';
+    } catch (error) {
+      console.log(error);
     }
-    const[parent, setParent] = useState(parents);
+  };
 
-    const navigate = useNavigate;
-
-
-    const inputHandler = (e) =>{
-        const {name, value} = e.target;
-        setParent({...parent, [name]:value});
-    }
-
-
-    const submitForm = async(e) =>{
-        e.preventDefault();
-        
-        const formData = new FormData();
-        formData.append('fname', parent.fname);
-        formData.append('lname', parent.lname);
-        formData.append('parentOf', parent.parentOf);
-        formData.append('relation', parent.relation);
-        formData.append('phoneNo', parent.phoneNo);
-      
-
-        await axios.post("http://localhost:7000/api/createParent", formData, {
-         
-        })
-        .then((response)=>{
-            toast.success(response.data.msg, {position:"top-right"});
-            
-            window.location.href = '/parentList';
-        })
-        .catch(error => console.log(error))
-    }
+  //form for the adding data of parent
   return (
-    <div className='addParent'>
-        <Link to={"/parentList"}>Back</Link>
-        <h3>Add New Parent</h3>
-    <form className='addDetails' onSubmit={submitForm}>
-        <div className="inputGroup">
-            <label htmlFor='Name'>First Name:</label>
-            <input type='text' required onChange={inputHandler} id='fname' name='fname' autoComplete='off' placeholder='Enter Your Name'/>
+    <div className="container mt-5">
+      <Link to="/parentList" className="btn btn-primary">
+        Back
+      </Link>
+      <h3 className="mt-3">Add New Parent</h3>
+      <form className="row g-3 mt-3" onSubmit={submitForm}>
+        <div className="col-md-6">
+          <label htmlFor="fname" className="form-label">
+            First Name:
+          </label>
+          <input
+            type="text"
+            required
+            className="form-control"
+            id="fname"
+            name="fname"
+            autoComplete="off"
+            placeholder="Enter Your Name"
+            onChange={inputHandler}
+          />
         </div>
-        <div className='inputGroup'>
-            <label htmlFor='surname'>Last Name:</label>
-            <input type='text' required onChange={inputHandler} id='lname' name='lname' autoComplete='off' placeholder='Enter Your Surname'/>
+        <div className="col-md-6">
+          <label htmlFor="lname" className="form-label">
+            Last Name:
+          </label>
+          <input
+            type="text"
+            required
+            className="form-control"
+            id="lname"
+            name="lname"
+            autoComplete="off"
+            placeholder="Enter Your Surname"
+            onChange={inputHandler}
+          />
         </div>
-        <div className="inputGroup">
-            <label htmlFor='Name'>Parent Of:</label>
-            <input type='text' required onChange={inputHandler} id='parentOf' name='parentOf'  autoComplete='off' placeholder='Enter Your Child Name'/>
+        <div className="col-md-6">
+          <label htmlFor="parentOf" className="form-label">
+            Parent Of:
+          </label>
+          <input
+            type="text"
+            required
+            className="form-control"
+            id="parentOf"
+            name="parentOf"
+            autoComplete="off"
+            placeholder="Enter Your Child Name"
+            onChange={inputHandler}
+          />
         </div>
-        <div className="inputGroup">
-            <label htmlFor='Name'>Relation:</label>
-            <input type='text' required onChange={inputHandler} id='relation' name='relation'  autoComplete='off' placeholder='Enter Your Relation with Child '/>
+        <div className="col-md-6">
+          <label htmlFor="relation" className="form-label">
+            Relation:
+          </label>
+          <input
+            type="text"
+            required
+            className="form-control"
+            id="relation"
+            name="relation"
+            autoComplete="off"
+            placeholder="Enter Your Relation with Child"
+            onChange={inputHandler}
+          />
         </div>
-        <div className="inputGroup">
-            <label htmlFor='Name'>Contact Number:</label>
-            <input type='bigint' required onChange={inputHandler} id='phoneNo' name='phoneNo'  autoComplete='off' placeholder='Enter Your  Number'/>
+        <div className="col-md-6">
+          <label htmlFor="phoneNo" className="form-label">
+            Contact Number:
+          </label>
+          <input
+            type="text" 
+            required
+            className="form-control"
+            id="phoneNo"
+            name="phoneNo"
+            autoComplete="off"
+            placeholder="Enter Your Number"
+            onChange={inputHandler}
+          />
         </div>
-        <div className="inputGroup">
-            <button type='submit'>Add Parent Details</button>
+        <div className="col-12 mt-3">
+          <button type="submit" className="btn btn-primary">
+            Add Parent Details
+          </button>
         </div>
-    </form>
+      </form>
     </div>
-  )
-}
-export default Add;
+  );
+};
+
+export default AddParent;

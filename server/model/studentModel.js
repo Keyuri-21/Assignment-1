@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 
+// creating the collection for the student in database
 const studentSchema = new mongoose.Schema({
     email:{
         type: String,
