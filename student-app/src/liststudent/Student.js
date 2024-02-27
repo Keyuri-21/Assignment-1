@@ -2,18 +2,20 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import toast from 'react-hot-toast';
+import './Student.css';
+import { API_BASE_URL, DELETE_ENDPOINT, SEARCH_ENDPOINT, getallUrl } from '../utils/Constants';
 
-const Parent = () => {
-  const [parents, setParents] = useState([]);
+const Student = () => {
+  const [students, setStudents] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
 
   const handleSearch = async (e) => {
     setSearchQuery(e.target.value);
 
     await axios
-      .get(`http://localhost:7000/api/searchParent/${e.target.value}`)
+      .get(`${API_BASE_URL}${SEARCH_ENDPOINT}/${e.target.value}`)
       .then((response) => {
-        setParents(response.data);
+        setStudents(response.data);
       })
       .catch((error) => {
         console.log(error);
@@ -22,19 +24,19 @@ const Parent = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await axios.get('http://localhost:7000/api/getAllParent');
-      setParents(response.data);
+      const response = await axios.get(getallUrl);
+      setStudents(response.data);
     };
 
     fetchData();
   }, []);
 
-  const deleteParent = async (parentId) => {
+  const deleteStudent = async (studentId) => {
     await axios
-      .delete(`http://localhost:7000/api/deleteParent/${parentId}`)
+      .delete(`${API_BASE_URL}${DELETE_ENDPOINT}/${studentId}`)
       .then((response) => {
-        setParents((prevParent) =>
-          prevParent.filter((parent) => parent._id !== parentId)
+        setStudents((prevStudent) =>
+          prevStudent.filter((student) => student._id !== studentId)
         );
         toast.success(response.data.msg, { position: 'top-right' });
       })
@@ -43,11 +45,11 @@ const Parent = () => {
       });
   };
 
-  //listing the parents
+  //listing the students
   return (
     <div className='container mt-5'>
-      <Link to='/AddParent' className='btn btn-primary'>
-        Add Parent
+      <Link to='/add' className='btn btn-primary'>
+        Add Student
       </Link>
 
       <input
@@ -60,7 +62,7 @@ const Parent = () => {
           borderRadius: '5px',
         }}
         type='text'
-        placeholder='Search by First Name...'
+        placeholder='Search by Email...'
         value={searchQuery}
         onChange={handleSearch}
       />
@@ -68,32 +70,37 @@ const Parent = () => {
         <thead>
           <tr>
             <th>S.No.</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Parent Of</th>
-            <th>Relation</th>
-            <th>Contact No</th>
+            <th>ProfilePic</th>
+            <th>Student Email</th>
+            <th>Standard</th>
+            <th>School</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
-          {parents.map((parent, index) => (
-            <tr key={parent._id}>
+          {students.map((student, index) => (
+            <tr key={student._id}>
               <td>{index + 1}</td>
-              <td>{parent.fname} </td>
-              <td>{parent.lname}</td>
-              <td>{parent.parentOf}</td>
-              <td>{parent.relation}</td>
-              <td>{parent.phoneNo}</td>
+              <td>
+                <img
+                  src={`${API_BASE_URL}/${student.profilePic}`}
+                  alt='Profile'
+                  width={50}
+                  height={50}
+                />
+              </td>
+              <td>{student.email} </td>
+              <td>{student.std}</td>
+              <td>{student.school}</td>
               <td className='actionButtons' style={{ textAlign: 'center' }}>
                 <button
-                  onClick={() => deleteParent(parent._id)}
+                  onClick={() => deleteStudent(student._id)}
                   className='btn btn-danger btn-sm'
                 >
                   Delete
                 </button>
                 <Link
-                  to={`/updateParent/` + parent._id}
+                  to={`/update/${student._id}`}
                   style={{ marginLeft: '10px' }}
                   className='btn btn-primary btn-sm'
                 >
@@ -108,4 +115,4 @@ const Parent = () => {
   );
 };
 
-export default Parent;
+export default Student;

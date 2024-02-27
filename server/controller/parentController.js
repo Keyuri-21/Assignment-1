@@ -1,10 +1,9 @@
-import Parent from '../model/parentModel.js';
+import Parent from '../model/ParentModel.js';
 // api for creating the parent 
 export const createParent =   async (req, res) => {    
     try {
 
         const { fname, lname, parentOf, relation, phoneNo,} = req.body;
-        console.log(req.body);
         const parentData = new Parent({
             fname,
             lname, 
@@ -25,7 +24,6 @@ export const createParent =   async (req, res) => {
 export const getAllParent = async(req, res) =>{
     try{
         const parentData = await Parent.find();
-        console.log(parentData)
             if(!parentData){
                 return res.status(400).json({msg: "parent Data not found."});
             }
@@ -91,8 +89,6 @@ export const searchParent = async (req, res) =>{
     try {
         const fname = req.params.fname;
         const parentExist = await Parent.find({fname:  { $regex: new RegExp(fname, 'i') } });
-
-
         if(!parentExist){
             return res.status(404).json({msg: "parent not exists."});
         }
@@ -101,4 +97,3 @@ export const searchParent = async (req, res) =>{
         res.status(500).json({error: error});
     }
 }
-

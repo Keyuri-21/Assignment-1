@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import { API_BASE_URL, PUBLIC_ENDPOINT } from '../utils/Constants';
 
 const StudentProfile = () => {
   const { email } = useParams();
@@ -24,8 +25,6 @@ const StudentProfile = () => {
     fetchStudentData();
   }, [email]);
   
-
-
 // displays the student profile
   return (
     <div className="container mt-5">
@@ -43,7 +42,7 @@ const StudentProfile = () => {
         <div>
           <strong>Profile Picture:</strong>
           <img
-            src={`http://localhost:7000/public/${student.profilePic}`}
+            src={`${API_BASE_URL}${PUBLIC_ENDPOINT}/${student.profilePic}`}
             alt="Profile"
             className="img-fluid"
           />

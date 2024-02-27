@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 // creating the collection for the student in database
-const studentSchema = new mongoose.Schema({
+const StudentSchema = new mongoose.Schema({
     email:{
         type: String,
         required: true
@@ -21,4 +21,4 @@ const studentSchema = new mongoose.Schema({
     
 })
 
-export default mongoose.model("Student", studentSchema);
+export default mongoose.model("student", StudentSchema);

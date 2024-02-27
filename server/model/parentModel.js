@@ -1,7 +1,7 @@
-
 import mongoose from "mongoose";
+
 // creating the parent collection for the database
-const parentSchema = new mongoose.Schema({
+const ParentSchema = new mongoose.Schema({
     fname:{
         type: String,
         required: true
@@ -24,4 +24,4 @@ const parentSchema = new mongoose.Schema({
     } 
 })
 
-export default mongoose.model("Parent", parentSchema);
+export default mongoose.model("parent", ParentSchema);

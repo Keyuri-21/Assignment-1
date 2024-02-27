@@ -1,4 +1,5 @@
 import React from 'react';
+
 // login form component used in the login pages
 const LoginForm = ({ setEmail, setPassword }) => {
   return (
@@ -19,7 +20,7 @@ const LoginForm = ({ setEmail, setPassword }) => {
       </div>
       <div className="mb-2">
         <label htmlFor="password" className="form-label">
-          <strong>Password</strong>
+        <strong>Password</strong>
         </label>
         <input
           type="password"

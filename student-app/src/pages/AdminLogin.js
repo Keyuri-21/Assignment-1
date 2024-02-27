@@ -1,26 +1,28 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import LoginForm from '../components/LoginForm';
+import LoginForm from '../components/LoginForm.js';
+import { adminUrl } from '../utils/Constants.js';
+import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 const AdminLogin = () => {
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
-
+    const navigate = useNavigate();
+   
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
-            const result = await axios.post('http://localhost:7000/admin/login', {
+            const result = await axios.post(adminUrl, {
                 email,
                 password,
             });
 
-            console.log(result);
-
             if (result.data === "Success") {
-                window.location.href = '/admin';
+                toast.success('Admin login successfully!', { position: 'top-right' });
+                navigate('/admin');
             } else {
                 // Handle unsuccessful login 
                 console.error("Login unsuccessful");

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import toast from 'react-hot-toast';
+import { API_BASE_URL, GETONEPARENT_ENDPOINT, UPDATEPARENT_ENDPOINT } from '../utils/Constants';
 
 const EditParent = () => {
   const { id } = useParams();
@@ -17,11 +18,10 @@ const EditParent = () => {
   const inputChangeHandler = (e) => {
     const { name, value } = e.target;
     setParent({ ...parent, [name]: value });
-    console.log(parent);
   };
 
   useEffect(() => {
-    axios.get(`http://localhost:7000/api/getOneParent/${id}`)
+    axios.get(`${API_BASE_URL}${GETONEPARENT_ENDPOINT}/${id}`)
       .then((response) => {
         setParent(response.data);
         const fetchParentData = response.data.parentExist;
@@ -51,7 +51,7 @@ const EditParent = () => {
     await axios.put(`http://localhost:7000/api/updateParent/${id}`, formData, {})
       .then((response) => {
         toast.success(response.data.msg, { position: 'top-right' });
-        window.location.href = '/parentList';
+        navigate('/parentList');
       })
       .catch((error) => console.log(error));
   };

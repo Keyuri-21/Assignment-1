@@ -1,20 +1,22 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
-import './Add.css';
+import axios from 'axios';
+import '../addstudent/Add.css';
+import { API_BASE_URL, GETONE_ENDPOINT, UPDATE_ENDPOINT } from '../utils/Constants';
 
-export const Add = () => {
-  const students = {
+const Edit = () => {
+  const { id } = useParams();
+  const [student, setStudent] = useState({
     email: '',
     std: '',
     school: '',
     profilePic: '',
-  };
-  const [student, setStudent] = useState(students);
-  const [profilePic, setProfilePic] = useState('');
+  });
+  const [profilePic, setProfilePic] = useState();
+  const navigate = useNavigate();
 
-  const inputHandler = (e) => {
+  const inputChangeHandler = (e) => {
     const { name, value } = e.target;
     setStudent({ ...student, [name]: value });
   };
@@ -22,6 +24,23 @@ export const Add = () => {
   const imgHandler = (e) => {
     setStudent({ ...student, profilePic: e.target.files[0] });
   };
+
+  useEffect(() => {
+    axios.get(`${API_BASE_URL}${GETONE_ENDPOINT}/${id}`)
+      .then((response) => {
+        setStudent(response.data);
+        const fetchStudentData = response.data.studentExist;
+        setStudent({
+          email: fetchStudentData.email,
+          std: fetchStudentData.std,
+          school: fetchStudentData.school,
+          profilePic: fetchStudentData.profilePic,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, [id]);
 
   const submitForm = async (e) => {
     e.preventDefault();
@@ -33,46 +52,38 @@ export const Add = () => {
     formData.append('profilePic', student.profilePic);
 
     try {
-      const response = await axios.post('http://localhost:7000/api/create', formData, {
+      const response = await axios.put(`${API_BASE_URL}${UPDATE_ENDPOINT}/${id}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       });
-
       toast.success(response.data.msg, { position: 'top-right' });
-      window.location.href = '/list';
+      navigate('/list'); 
     } catch (error) {
-      console.log(error);
+      console.error('Error updating student details:', error);
+      toast.error('Failed to update student details', { position: 'top-right' });
     }
   };
 
-  useEffect(() => {
-    axios.get('http://localhost:7000/api/getprofilePic')
-      .then((res) => setProfilePic(res.data[0].profilePic))
-      .catch((err) => console.log(err));
-  }, []);
-
-  //form for the adding the student
   return (
     <div className='container mt-5'>
-      <Link to='/list' className='btn btn-primary'>
+      <Link to={'/list'} className='btn btn-primary'>
         Back
       </Link>
-      <h3>Add New Student</h3>
-      <form className='row g-3 mt-3 addDetails' onSubmit={submitForm}>
+      <h3 className='mt-3'>Update Student Details</h3>
+      <form className='row g-3 mt-3' onSubmit={submitForm}>
         <div className='col-md-6'>
           <label htmlFor='email' className='form-label'>
             Email:
           </label>
           <input
             type='email'
-            required
-            onChange={inputHandler}
-            id='email'
+            value={student.email}
+            onChange={inputChangeHandler}
             name='email'
             autoComplete='off'
-            placeholder='Enter Your Email'
             className='form-control'
+            placeholder='Enter Email'
           />
         </div>
         <div className='col-md-6'>
@@ -81,13 +92,12 @@ export const Add = () => {
           </label>
           <input
             type='text'
-            required
-            onChange={inputHandler}
-            id='std'
+            value={student.std}
+            onChange={inputChangeHandler}
             name='std'
             autoComplete='off'
-            placeholder='Enter Your Standard'
             className='form-control'
+            placeholder='Enter Standard'
           />
         </div>
         <div className='col-md-6'>
@@ -96,13 +106,12 @@ export const Add = () => {
           </label>
           <input
             type='text'
-            required
-            onChange={inputHandler}
-            id='school'
+            value={student.school}
+            onChange={inputChangeHandler}
             name='school'
             autoComplete='off'
-            placeholder='Enter Your School'
             className='form-control'
+            placeholder='Enter School'
           />
         </div>
         <div className='col-md-6'>
@@ -111,7 +120,6 @@ export const Add = () => {
           </label>
           <input
             type='file'
-            placeholder='Select Profile Picture'
             autoComplete='off'
             name='profilePic'
             onChange={imgHandler}
@@ -120,7 +128,7 @@ export const Add = () => {
         </div>
         <div className='col-12 mt-3'>
           <button type='submit' className='btn btn-primary'>
-            Add Student Details
+            Update Student Details
           </button>
         </div>
       </form>
@@ -128,4 +136,4 @@ export const Add = () => {
   );
 };
 
-export default Add;
+export default Edit;

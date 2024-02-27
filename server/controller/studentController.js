@@ -1,8 +1,8 @@
-import Student from '../model/studentModel.js';
+import Student from '../model/StudentModel.js';
 
 export const profilePic = async (req, res) =>{
  Student.find()
-.then(students =>{res.json(students), console.log(students)})
+.then(students =>{res.json(students)})
 
 .catch(err => res.json(err))
 }
@@ -12,7 +12,6 @@ export const create =   async (req, res) => {
     try {
         const { email, std, school } = req.body;
         const profilePic = req.file.filename ;
-        console.log(profilePic)
         const studentData = new Student({
             email,
             std, 
@@ -32,7 +31,6 @@ export const create =   async (req, res) => {
 export const getAll = async(req, res) =>{
     try{
         const studentData = await Student.find();
-        console.log(studentData)
             if(!studentData){
                 return res.status(400).json({msg: "Student Data not found."});
             }
@@ -63,7 +61,6 @@ export const update = async(req, res) =>{
     try {
         const id = req.params.id;
         const studentExist = await Student.findById(id);
-        console.log(id)
         if(!studentExist){
             return res.status(401).json({msg: "Student not exists."})
         }
@@ -108,8 +105,6 @@ export const search = async (req, res) =>{
     try {
         const email = req.params.email;
         const studentExist = await Student.find({email:  { $regex: new RegExp(email, 'i') } });
-
-
         if(!studentExist){
             return res.status(404).json({msg: "Student not exists."});
         }
@@ -118,4 +113,3 @@ export const search = async (req, res) =>{
         res.status(500).json({error: error});
     }
 }
-

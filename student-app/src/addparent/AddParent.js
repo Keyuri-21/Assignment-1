@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 import axios from 'axios';
 import toast from 'react-hot-toast';
+import { createparentUrl } from '../utils/Constants';
+
+
 
 const AddParent = () => {
   const parents = {
@@ -12,6 +15,7 @@ const AddParent = () => {
     phoneNo: '',
   };
   const [parent, setParent] = useState(parents);
+  const navigate = useNavigate();
 
   const inputHandler = (e) => {
     const { name, value } = e.target;
@@ -30,10 +34,10 @@ const AddParent = () => {
     const data = Object.fromEntries(formData.entries());
 
     try {
-      const response = await axios.post('http://localhost:7000/api/createParent', data, {});
+      const response = await axios.post(createparentUrl, data, {});
 
       toast.success(response.data.msg, { position: 'top-right' });
-      window.location.href = '/parentList';
+      navigate('/parentList');
     } catch (error) {
       console.log(error);
     }

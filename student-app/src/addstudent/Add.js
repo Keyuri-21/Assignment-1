@@ -1,46 +1,29 @@
-import React, { useEffect, useState } from 'react';
-import { Link, useParams, useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import '../addstudent/Add.css';
 import toast from 'react-hot-toast';
+import './Add.css';
+import { createUrl, getprofilepicUrl } from '../utils/Constants';
 
-const Edit = () => {
-  const { id } = useParams();
-  const [student, setStudent] = useState({
+
+export const Add = () => {
+  const students = {
     email: '',
     std: '',
     school: '',
     profilePic: '',
-  });
-  const [profilePic, setProfilePic] = useState();
+  };
+  const [student, setStudent] = useState(students);
+  const [profilePic, setProfilePic] = useState('');
   const navigate = useNavigate();
-
-  const inputChangeHandler = (e) => {
+  const inputHandler = (e) => {
     const { name, value } = e.target;
     setStudent({ ...student, [name]: value });
-    console.log(student);
   };
 
   const imgHandler = (e) => {
     setStudent({ ...student, profilePic: e.target.files[0] });
   };
-
-  useEffect(() => {
-    axios.get(`http://localhost:7000/api/getOne/${id}`)
-      .then((response) => {
-        setStudent(response.data);
-        const fetchStudentData = response.data.studentExist;
-        setStudent({
-          email: fetchStudentData.email,
-          std: fetchStudentData.std,
-          school: fetchStudentData.school,
-          profilePic: fetchStudentData.profilePic,
-        });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  }, [id]);
 
   const submitForm = async (e) => {
     e.preventDefault();
@@ -52,40 +35,46 @@ const Edit = () => {
     formData.append('profilePic', student.profilePic);
 
     try {
-      const response = await axios.put(`http://localhost:7000/api/update/${id}`, formData, {
+      const response = await axios.post(createUrl, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
       });
 
-      console.log(response);
       toast.success(response.data.msg, { position: 'top-right' });
-      navigate('/list'); 
+      navigate('/list');
     } catch (error) {
-      console.error('Error updating student details:', error);
-      toast.error('Failed to update student details', { position: 'top-right' });
+      console.log(error);
     }
   };
 
+  useEffect(() => {
+    axios.get(getprofilepicUrl)
+      .then((res) => setProfilePic(res.data[0].profilePic))
+      .catch((err) => console.log(err));
+  }, []);
+
+  //form for the adding the student
   return (
     <div className='container mt-5'>
-      <Link to={'/list'} className='btn btn-primary'>
+      <Link to='/list' className='btn btn-primary'>
         Back
       </Link>
-      <h3 className='mt-3'>Update Student Details</h3>
-      <form className='row g-3 mt-3' onSubmit={submitForm}>
+      <h3>Add New Student</h3>
+      <form className='row g-3 mt-3 addDetails' onSubmit={submitForm}>
         <div className='col-md-6'>
           <label htmlFor='email' className='form-label'>
             Email:
           </label>
           <input
             type='email'
-            value={student.email}
-            onChange={inputChangeHandler}
+            required
+            onChange={inputHandler}
+            id='email'
             name='email'
             autoComplete='off'
+            placeholder='Enter Your Email'
             className='form-control'
-            placeholder='Enter Email'
           />
         </div>
         <div className='col-md-6'>
@@ -94,12 +83,13 @@ const Edit = () => {
           </label>
           <input
             type='text'
-            value={student.std}
-            onChange={inputChangeHandler}
+            required
+            onChange={inputHandler}
+            id='std'
             name='std'
             autoComplete='off'
+            placeholder='Enter Your Standard'
             className='form-control'
-            placeholder='Enter Standard'
           />
         </div>
         <div className='col-md-6'>
@@ -108,12 +98,13 @@ const Edit = () => {
           </label>
           <input
             type='text'
-            value={student.school}
-            onChange={inputChangeHandler}
+            required
+            onChange={inputHandler}
+            id='school'
             name='school'
             autoComplete='off'
+            placeholder='Enter Your School'
             className='form-control'
-            placeholder='Enter School'
           />
         </div>
         <div className='col-md-6'>
@@ -122,6 +113,7 @@ const Edit = () => {
           </label>
           <input
             type='file'
+            placeholder='Select Profile Picture'
             autoComplete='off'
             name='profilePic'
             onChange={imgHandler}
@@ -130,7 +122,7 @@ const Edit = () => {
         </div>
         <div className='col-12 mt-3'>
           <button type='submit' className='btn btn-primary'>
-            Update Student Details
+            Add Student Details
           </button>
         </div>
       </form>
@@ -138,4 +130,4 @@ const Edit = () => {
   );
 };
 
-export default Edit;
+export default Add;

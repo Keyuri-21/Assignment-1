@@ -1,18 +1,17 @@
-import express from "express";
-import { createParent, searchParent } from "../controller/parentController.js"; 
-import { getAllParent } from "../controller/parentController.js";
-import { getOneParent } from "../controller/parentController.js";
-import { updateParent } from "../controller/parentController.js";
-import { deleteParent } from "../controller/parentController.js";
-const parentRoute = express.Router();
-const app =express()
+import express from 'express';
+import { createParent, searchParent } from "../controller/ParentController.js"; 
+import { getAllParent } from "../controller/ParentController.js";
+import { getOneParent } from "../controller/ParentController.js";
+import { updateParent } from "../controller/ParentController.js";
+import { deleteParent } from "../controller/ParentController.js";
+const ParentRoute = express.Router();
 
 //giving the rooute to all the apis for the parent
-parentRoute.post("/createParent", createParent);
-parentRoute.get("/getAllParent", getAllParent);
-parentRoute.get("/getOneParent/:id", getOneParent);
-parentRoute.put("/updateParent/:id", updateParent);
-parentRoute.delete("/deleteParent/:id", deleteParent);
-parentRoute.get("/searchParent/:fname",  searchParent);
+ParentRoute.post("/createParent", createParent);
+ParentRoute.get("/getAllParent", getAllParent);
+ParentRoute.get("/getOneParent/:id", getOneParent);
+ParentRoute.put("/updateParent/:id", updateParent);
+ParentRoute.delete("/deleteParent/:id", deleteParent);
+ParentRoute.get("/searchParent/:fname",  searchParent);
 
-export default parentRoute;
+export default ParentRoute;

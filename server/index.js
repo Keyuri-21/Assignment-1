@@ -1,15 +1,13 @@
 import express from "express";
-import mongoose from "mongoose";
 import bodyParser from "body-parser";
 import dotenv from "dotenv";
 import cors from "cors";
-import path from "path";
-import route from "./routes/studentRoute.js";
-import parentRoute from "./routes/parentRoute.js";
-import SignupModel from "./model/signupModel.js"
-import AdminModel from "./model/adminModel.js";
-import session from "express-session";
-import Student from "./model/studentModel.js";
+import mongoose from "mongoose";
+import route from "./routes/StudentRoute.js";
+import SignupModel from "./model/SignupModel.js"
+import AdminModel from "./model/AdminModel.js";
+import Student from "./model/StudentModel.js";
+import ParentRoute from "./routes/parentRoute.js";
 
 
 const app = express();
@@ -38,7 +36,6 @@ mongoose.connect("mongodb://127.0.0.1:27017/studentms").then(()=>{
 app.get('/getByEmail', async (req, res) => {
   const { email } = req.query;
   const student = await Student.findOne({ email });
-  console.log(student)
 
   if (student) {
     res.json(student);
@@ -51,7 +48,6 @@ app.get('/getByEmail', async (req, res) => {
 //api for the login of user
 app.post('/login', (req, res) => {
     const { email, password } = req.body;
-    console.log(req.body);
   
     SignupModel.findOne({ email: email })
       .then((signup) => {
@@ -74,11 +70,7 @@ app.post('/login', (req, res) => {
   //api for the login of admin
 app.post('/admin/login', (req, res) =>{
     const {email, password} = req.body;
-
-    console.log(email ,password)
     AdminModel.findOne({email: email})
-
-    
     .then(admin => {
         if(admin){
             if(admin.password === password){
@@ -110,4 +102,4 @@ app.use('/signup', (req, res) =>{
 })
 
 app.use("/api", route);
-app.use("/api", parentRoute);
+app.use("/api", ParentRoute);

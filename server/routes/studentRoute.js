@@ -1,12 +1,13 @@
 import express from "express";
-import { create, search } from "../controller/studentController.js"; 
-import { getAll } from "../controller/studentController.js";
-import { getOne } from "../controller/studentController.js";
-import { update } from "../controller/studentController.js";
-import { deleteStudent } from "../controller/studentController.js";
 import multer from "multer";
 import path from "path"; 
-import { profilePic } from "../controller/studentController.js";
+import { create, search } from "../controller/StudentController.js"; 
+import { getAll } from "../controller/StudentController.js";
+import { getOne } from "../controller/StudentController.js";
+import { update } from "../controller/StudentController.js";
+import { deleteStudent } from "../controller/StudentController.js";
+import { profilePic } from "../controller/StudentController.js";
+
 const route = express.Router();
 const app =express()
 
