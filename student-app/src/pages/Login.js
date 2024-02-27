@@ -1,25 +1,4 @@
-
-
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   try {
-  //     const result = await axios.post(loginUrl , {
-  //       email,
-  //       password,
-  //     });
-
-  //     if (result.data === 'Success') {
-  //      toast.success('User login successfully!',{position:"top-right"});
-  //       navigate(`/StudentProfile/${email}`);
-  //     }
-  //   } catch (err) {
-  //     if (err.response && err.response.data) {
-  //       setErrors(err.response.data);
-  //     }
-  //   }
-  // };
-
-  import React, { useState } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
