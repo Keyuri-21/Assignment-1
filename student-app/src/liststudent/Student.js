@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import './Student.css';
-import { API_BASE_URL, DELETE_ENDPOINT, SEARCH_ENDPOINT, getallUrl } from '../utils/Constants';
+import { API_BASE_URL, DELETE_ENDPOINT, SEARCH_ENDPOINT, getallUrl } from '../Constants';
 
 const Student = () => {
   const [students, setStudents] = useState([]);

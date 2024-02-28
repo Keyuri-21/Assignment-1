@@ -2,7 +2,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import axios from 'axios';
 import toast from 'react-hot-toast';
-import { createparentUrl } from '../utils/Constants';
+import { createparentUrl } from '../Constants';
 
 
 

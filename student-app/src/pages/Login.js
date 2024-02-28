@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useForm } from 'react-hook-form'; // Import useForm hook
 import LoginForm from '../components/LoginForm.js';
-import { loginUrl } from '../utils/Constants.js';
+import { loginUrl } from '../Constants.js';
 import toast from 'react-hot-toast';
 
 const Login = () => {
@@ -12,16 +12,16 @@ const Login = () => {
   const { register, handleSubmit, formState: { errors: formErrors } } = useForm(); // Destructure formState.errors from useForm
   const navigate = useNavigate();
 
-  const onSubmit = async (e) => {
+  const onSubmit = async (student) => {
     try {
           const result = await axios.post(loginUrl , {
-            email:e.email,
-            password:e.password
+            email:student.email,
+            password:student.password
           });
     
           if (result.data === 'Success') {
            toast.success('User login successfully!',{position:"top-right"});
-            navigate(`/StudentProfile/${e.email}`);
+            navigate(`/StudentProfile/${student.email}`);
           }
         } catch (err) {
           if (err.response && err.response.data) {

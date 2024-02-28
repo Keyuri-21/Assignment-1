@@ -63,11 +63,11 @@ function App() {
       element:<Signup />,
     },
     {
-      path:"/admin/login",
+      path:"/adminlogin",
       element:<AdminLogin />,
     },
     {
-      path:"/Admin",
+      path:"/admin",
       element:<Admin />,
     },
   ])

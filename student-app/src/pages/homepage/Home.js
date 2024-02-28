@@ -21,9 +21,6 @@ const Home = () => {
                 <Link className="nav-link" to="/Login">Login</Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/Signup">Sign Up</Link>
-              </li>
-              <li className="nav-item">
                 <Link className="nav-link" to="/admin/login">Login as Admin</Link>
               </li>
             </ul>

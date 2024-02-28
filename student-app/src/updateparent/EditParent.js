@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import toast from 'react-hot-toast';
-import { API_BASE_URL, GETONEPARENT_ENDPOINT, UPDATEPARENT_ENDPOINT } from '../utils/Constants';
+import { API_BASE_URL, GETONEPARENT_ENDPOINT, UPDATEPARENT_ENDPOINT } from '../Constants';
 
 const EditParent = () => {
   const { id } = useParams();

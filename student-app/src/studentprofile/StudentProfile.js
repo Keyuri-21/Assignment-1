@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-import { API_BASE_URL, PUBLIC_ENDPOINT } from '../utils/Constants';
+import { API_BASE_URL, PUBLIC_ENDPOINT } from '../Constants';
 
 const StudentProfile = () => {
   const { email } = useParams();
@@ -15,7 +15,7 @@ const StudentProfile = () => {
   useEffect(() => {
     const fetchStudentData = async () => {
       try {
-        const response = await axios.get(`http://localhost:7000/getByEmail?email=${email}`);
+        const response = await axios.get(`http://localhost:7000/api/getByEmail?email=${email}`);
         setStudent(response.data);
       } catch (error) {
         console.error('Error fetching student details:', error);

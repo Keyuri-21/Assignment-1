@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import toast from 'react-hot-toast';
-import { API_BASE_URL, DELETEPARENT_ENDPOINT, SEARCHPARENT_ENDPOINT, getallparentUrl } from '../utils/Constants';
+import { API_BASE_URL, DELETEPARENT_ENDPOINT, SEARCHPARENT_ENDPOINT, getallparentUrl } from '../Constants';
 
 const Parent = () => {
   const [parents, setParents] = useState([]);

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import LoginForm from '../components/LoginForm.js';
-import { adminUrl } from '../utils/Constants.js';
+import { adminUrl } from '../Constants.js';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 
