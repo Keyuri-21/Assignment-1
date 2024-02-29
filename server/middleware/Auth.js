@@ -4,7 +4,7 @@ import express from "express";
 const app = express();
 app.use(session({
     secret:"1234567",
-    resave: true,
+    resave: false,
     saveUninitialized: false,
 }));
 

@@ -1,0 +1,80 @@
+$box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.65);
+$button-box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.65);
+$primary-color: rgb(111, 201, 224);
+$table-header-bg: blueviolet;
+$table-header-color: blanchedalmond;
+$action-buttons-bg: red;
+$action-buttons-hover-bg: darken($action-buttons-bg, 10%); 
+$link-buttons-bg: green;
+$link-buttons-hover-bg: darken($link-buttons-bg, 10%); 
+
+.studentTable {
+  width: 75%;
+  background-color: rgb(228, 234, 238);
+  box-shadow: $box-shadow;
+  margin: 50px auto;
+  border-radius: 5px;
+  padding: 50px;
+
+  .addButton {
+    text-decoration: none;
+    background-color: $primary-color;
+    color: black;
+    font-weight: 500;
+    box-shadow: $button-box-shadow;
+    border-radius: 5px;
+    padding: 10px;
+    margin: auto;
+    margin-left: 15%;
+  }
+
+  table {
+    width: 70%;
+    margin: auto;
+    margin-top: 30px;
+    border-collapse: collapse;
+
+    thead {
+      th {
+        background-color: $table-header-bg;
+        color: $table-header-color;
+        padding: 10px;
+      }
+    }
+
+    tbody {
+      td {
+        padding: 10px;
+        text-align: center;
+      }
+    }
+  }
+
+  .actionButtons {
+    button {
+      border: 0;
+      outline: none;
+      background: $action-buttons-bg;
+      padding: 8px 10px;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+
+      &:hover {
+        background: $action-buttons-hover-bg;
+      }
+    }
+
+    a {
+      background: $link-buttons-bg;
+      padding: 6px 10px;
+      color: white;
+      border-radius: 5px;
+      text-decoration: none;
+
+      &:hover {
+        background: $link-buttons-hover-bg;
+      }
+    }
+  }
+}

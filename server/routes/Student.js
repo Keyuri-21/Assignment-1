@@ -35,7 +35,7 @@ const upload = multer({ storage: storage })
 // all the routes for the apis of the student
 route.get('/getprofilePic', isAdmin, profilePic, ); 
 route.post("/create",upload.single("profilePic") , isAdmin, create);
-route.get("/getAll", isAdmin, getAll);
+route.get("/getAll", getAll);
 route.get("/getOne/:id", isAdmin, getOne);
 route.put("/update/:id",upload.single("profilePic") ,isAdmin,  update);
 route.delete("/delete/:id", isAdmin, deleteStudent);

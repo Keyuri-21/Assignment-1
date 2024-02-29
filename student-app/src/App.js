@@ -1,18 +1,18 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import Student from './crudoperations/student/Student.js';
-import Parent from './crudoperations/parent/Parent.js';
-import Add from './crudoperations/student/Add.js';
-import Edit from './crudoperations/student/Edit.js';
-import EditParent from './crudoperations/parent/EditParent.js';
+import Student from './views/student/Student.js';
+import Parent from './views/parent/Parent.js';
+import Add from './views/student/Add.js';
+import Edit from './views/student/Edit.js';
+import EditParent from './views/parent/EditParent.js';
 import React from 'react';
 import Home from './views/Home.js';
 import AboutUs from './views/AboutUs.js';
-import Login from './views/Login.js';
-import Signup from './views/Signup.js';
+import Login from './views/authenticate/Login.js';
+import Signup from './views/authenticate/Signup.js';
 import Admin from './views/Admin.js';
-import AdminLogin from './views/AdminLogin.js';
-import StudentProfile from './studentprofile/StudentProfile.js';
-import AddParent from "./crudoperations/parent/AddParent.js";
+import AdminLogin from './views/authenticate/AdminLogin.js';
+import StudentProfile from './views/studentprofile/StudentProfile.js';
+import AddParent from "./views/parent/AddParent.js";
 import './App.css';
 
 function App() {
@@ -20,11 +20,15 @@ function App() {
   const route = createBrowserRouter([
     {
       path:"/",
-      element:<Home/>,
+      element:<Login/>,
     },
     {
       path:"/aboutUs",
       element:<AboutUs/>,
+    },
+    {
+      path:"/dashboard",
+      element:<Home/>,
     },
     {
       path:"/list",
