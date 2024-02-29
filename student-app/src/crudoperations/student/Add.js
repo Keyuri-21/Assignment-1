@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import toast from 'react-hot-toast';
-import './Add.css';
-import { createUrl, getprofilepicUrl } from '../Constants';
+import '../../assets/Add.css';
+import { createUrl, getprofilepicUrl } from '../../Constants';
 
 
 export const Add = () => {

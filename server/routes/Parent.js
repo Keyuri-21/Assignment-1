@@ -4,7 +4,8 @@ import { getAllParent } from "../controller/Parent.js";
 import { getOneParent } from "../controller/Parent.js";
 import { updateParent } from "../controller/Parent.js";
 import { deleteParent } from "../controller/Parent.js";
-import isAdmin from '../controller/Auth.js';
+import isAdmin from '../middleware/Auth.js';
+
 
 
 const parentRoute = express.Router();

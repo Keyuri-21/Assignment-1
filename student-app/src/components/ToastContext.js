@@ -9,15 +9,10 @@ const ToastContext = createContext();
 export const useToast = () => useContext(ToastContext);
 
 export const ToastProvider = ({ children }) => {
-  const showToast = (message, options ={}) => {
+  const showToast = (message) => {
     toast(message, {
       position: 'top-right',
-      autoClose: 3000, // Adjust as needed
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
+      autoClose: 3000, 
     });
   };
 

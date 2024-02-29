@@ -1,18 +1,18 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import Student from './liststudent/Student.js';
-import Parent from './listparent/Parent.js';
-import Add from './addstudent/Add.js';
-import Edit from './updatestudent/Edit.js';
-import EditParent from './updateparent/EditParent.js';
+import Student from './crudoperations/student/Student.js';
+import Parent from './crudoperations/parent/Parent.js';
+import Add from './crudoperations/student/Add.js';
+import Edit from './crudoperations/student/Edit.js';
+import EditParent from './crudoperations/parent/EditParent.js';
 import React from 'react';
-import Home from './pages/homepage/Home.js';
-import AboutUs from './pages/AboutUs.js';
-import Login from './pages/Login.js';
-import Signup from './pages/Signup.js';
-import Admin from './pages/Admin.js';
-import AdminLogin from './pages/AdminLogin.js';
+import Home from './views/Home.js';
+import AboutUs from './views/AboutUs.js';
+import Login from './views/Login.js';
+import Signup from './views/Signup.js';
+import Admin from './views/Admin.js';
+import AdminLogin from './views/AdminLogin.js';
 import StudentProfile from './studentprofile/StudentProfile.js';
-import AddParent from "./addparent/AddParent.js";
+import AddParent from "./crudoperations/parent/AddParent.js";
 import './App.css';
 
 function App() {

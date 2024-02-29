@@ -7,7 +7,7 @@ import { getOne } from "../controller/Student.js";
 import { update } from "../controller/Student.js";
 import { deleteStudent } from "../controller/Student.js";
 import { profilePic } from "../controller/Student.js";
-import isAdmin from "../controller/Auth.js";
+import isAdmin from "../middleware/Auth.js";
 
 const route = express.Router();
 const app =express()

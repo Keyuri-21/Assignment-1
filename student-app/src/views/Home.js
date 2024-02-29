@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './Home.css'; 
+import '../assets/Home.css'; 
 
 const Home = () => {
   return (

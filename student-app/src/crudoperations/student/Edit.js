@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import axios from 'axios';
-import '../addstudent/Add.css';
-import { API_BASE_URL, GETONE_ENDPOINT, UPDATE_ENDPOINT } from '../Constants';
+import '../../assets/Add.css';
+import { API_BASE_URL, GETONE_ENDPOINT, UPDATE_ENDPOINT } from '../../Constants';
 
 const Edit = () => {
   const { id } = useParams();
